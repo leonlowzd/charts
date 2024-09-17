@@ -32,13 +32,11 @@ spec:
         {{- tpl (toYaml .Values.worker.labels) . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "trino.serviceAccountName" . }}
-      {{- with .Values.securityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       {{- if .Values.shareProcessNamespace.worker }}
       shareProcessNamespace: {{ .Values.shareProcessNamespace.worker }}
+      {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "trino.serviceAccountName" . }}
       {{- end }}
       volumes:
         - name: config-volume
