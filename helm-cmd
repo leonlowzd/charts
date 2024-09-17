@@ -1,0 +1,1 @@
+helm upgrade trino-cluster ./trino/ -n trino --atomic --install
